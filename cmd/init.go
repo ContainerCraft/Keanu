@@ -1,5 +1,5 @@
 /*
-Copyright © 2021 NAME HERE <EMAIL ADDRESS>
+Copyright © 2021 ContainerCraft <emcee@braincraft.io>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,21 +23,23 @@ import (
 
 // initCmd represents the init command
 var initCmd = &cobra.Command{
-	Use:   "init",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Use:   "keanu init [OPTIONS]",
+	Short: "Keanu setup tasks",
+	Long: `This function provides support for loading image
+dependencies and other pre-flight checks such as host port
+availability checking and pod creation.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+Example:
+  keanu init --preflight --cloudctl --registry`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("init called")
+		core()
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(initCmd)
+	initCmd.Flag().BoolP("help", "h", false, "keanu init help")
+	initCmd.Flags().Bool("&preflight", "F", true, "pre-flight host validation")
 
 	// Here you will define your flags and configuration settings.
 
@@ -48,4 +50,8 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// initCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+}
+
+func core() {
+	fmt.Println("init called")
 }
