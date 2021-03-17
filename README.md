@@ -25,3 +25,6 @@ Keanu CLI is a self contained go binary designed to meet the needs of
 bring your own devops runtime and infrastructure services for tasks such
 as deploying kubernetes platforms, disaster recovery, development, and
 pre-infrastructure dependencies.
+
+Capabilities include TPDK compatible airgap support. Usage and performance
+parity between connected and disconnected operations.
