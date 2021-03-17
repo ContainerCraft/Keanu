@@ -7,10 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// preflight error counter
 var preflightErrorCount int = 0
-
-// preflightCmd represents the preflight command
 var preflightCmd = &cobra.Command{
 	Use:        "init",
 	Aliases:    []string{},
@@ -18,59 +15,23 @@ var preflightCmd = &cobra.Command{
 	Short:      "Checks for conflicts on the host",
 	Long:       `This checks for conflicts on the host and reports issues for user resolution.`,
 	Example:    "keanu init --preflight",
-	ValidArgs:  []string{},
-	ValidArgsFunction: func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
-	},
-	Args: func(cmd *cobra.Command, args []string) error {
-	},
-	ArgAliases:             []string{},
-	BashCompletionFunction: "",
-	Deprecated:             "",
-	Annotations:            map[string]string{},
-	Version:                "",
-	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-	},
-	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-	},
-	PreRun: func(cmd *cobra.Command, args []string) {
-	},
-	PreRunE: func(cmd *cobra.Command, args []string) error {
-	},
 	Run: func(cmd *cobra.Command, args []string) {
 		logrus.Info("keanu begin preflight checks...")
-		logrus.WithFields(logrus.Fields{"SystemdCheck": systemdCheck(), "PortCheck": portCheck(), "FWRules": firewallRulesCheck()}).Info("Preflight Summary")
+		logrus.WithFields(logrus.Fields{
+			"PortCheck":    portCheck(),
+			"FWRules":      firewallRulesCheck(),
+			"SystemdCheck": systemdCheck(),
+		}).Info("Preflight Summary")
 		if preflightErrorCount == 0 {
 			logrus.Infof("No preflight conflicts detected, you are safe to continue.")
 		} else {
 			logrus.Fatal("Preflight errors found, please remediate before continuing.")
 		}
 	},
-	RunE: func(cmd *cobra.Command, args []string) error {
-	},
-	PostRun: func(cmd *cobra.Command, args []string) {
-	},
-	PostRunE: func(cmd *cobra.Command, args []string) error {
-	},
-	PersistentPostRun: func(cmd *cobra.Command, args []string) {
-	},
-	PersistentPostRunE: func(cmd *cobra.Command, args []string) error {
-	},
-	FParseErrWhitelist:         cobra.FParseErrWhitelist{},
-	TraverseChildren:           false,
-	Hidden:                     false,
-	SilenceErrors:              false,
-	SilenceUsage:               false,
-	DisableFlagParsing:         false,
-	DisableAutoGenTag:          false,
-	DisableFlagsInUseLine:      false,
-	DisableSuggestions:         false,
-	SuggestionsMinimumDistance: 0,
 }
 
 func init() {
-	rootCmd.AddCommand(preflightCmd)
-	preflightCmd.Flags().BoolP("fix-all", "x", false, "Does the needful and fixes errors it finds - EXPERIMENTAL")
-
+	preflightCmd.AddCommand(preflightCmd)
 }
 
 func portCheck() int {
@@ -118,7 +79,7 @@ func portCheck() int {
 	return porterrorcount
 }
 
-func systemdCheck(fix bool) int {
+func systemdCheck() int {
 	// set the error count to 0
 	svcerrorcount := 0
 	logrus.Info("Starting Systemd Checks")
@@ -143,7 +104,7 @@ func systemdCheck(fix bool) int {
 
 }
 
-func firewallRulesCheck(fix bool) int {
+func firewallRulesCheck() int {
 	// set the error count to 0
 	fwerrorcount := 0
 	fwfixCount := 0

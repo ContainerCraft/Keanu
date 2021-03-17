@@ -38,8 +38,8 @@ Example:
 
 func init() {
 	rootCmd.AddCommand(initCmd)
-	initCmd.Flag().BoolP("help", "h", false, "keanu init help")
-	initCmd.Flags().Bool("&preflight", "F", true, "pre-flight host validation")
+	//	initCmd.Flag().BoolP("help", "h", false, "keanu init help")
+	//	initCmd.Flags().Bool("&preflight", "F", true, "pre-flight host validation")
 
 	// Here you will define your flags and configuration settings.
 

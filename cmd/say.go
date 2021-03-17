@@ -19,28 +19,27 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	cowsay "github.com/usrbinkat/Neo-cowsay"
 )
 
 // sayCmd represents the say command
 var sayCmd = &cobra.Command{
-	Use:   "keanu say",
+	Use:   "say",
 	Short: "You've seen cowsay, get ready for keanu say",
 	Long:  `WOAH!`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("WOAH!")
+		say, err := cowsay.Say(
+			cowsay.Phrase("I know kung foo"),
+			cowsay.Type("keanu"),
+			cowsay.BallonWidth(40),
+		)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(say)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(sayCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// sayCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// sayCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
