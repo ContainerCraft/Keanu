@@ -1,5 +1,5 @@
 /*
-Copyright © 2021 NAME HERE <EMAIL ADDRESS>
+Copyright © 2021 ContainerCraft <emcee@braincraft.io>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import (
 
 // startCmd represents the start command
 var startCmd = &cobra.Command{
-	Use:   "start",
+	Use:   "keanu start [COMPONENT]",
 	Short: "A brief description of your command",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
